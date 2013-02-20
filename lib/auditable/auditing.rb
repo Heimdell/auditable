@@ -95,7 +95,7 @@ module Auditable
       attribute = attribute.to_s # support symbol as well
       last = audits.size - 1
       last.downto(1) do |i|
-        if audits[i].modifications[attribute] != audits[i-1].modifications[attribute]
+        if audits[i].modifications[attribute].to_s != audits[i-1].modifications[attribute].to_s
           return audits[i].diff(audits[i-1])[attribute]
         end
       end

@@ -29,7 +29,7 @@ module Auditable
 
         # find common keys and diff values
         self.modifications.keys.each do |k|
-          if self.modifications[k] != other_modifications[k]
+          if self.modifications[k].to_s != other_modifications[k].to_s
             d[k] = [other_modifications[k], self.modifications[k]]
           end
         end
@@ -69,7 +69,7 @@ module Auditable
     alias_attribute :changed_by, :user
 
     def same_audited_content?(other_audit)
-      other_audit and relevant_attributes == other_audit.relevant_attributes
+      other_audit and relevant_attributes.map(&:to_s) == other_audit.relevant_attributes.map(&:to_s)
     end
 
     def relevant_attributes
